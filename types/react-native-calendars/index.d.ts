@@ -221,7 +221,16 @@ export interface HeaderComponentProps {
     ref: React.RefCallback<any>;
 }
 
-export interface CalendarBaseProps {
+export interface MonthLoadingProps {
+
+    /**
+     *  Callback which gets executed when visible months change in scroll view. Default = undefined
+     */
+    onVisibleMonthsChange?: (months: DateObject[]) => void;
+}
+
+
+export interface CalendarBaseProps extends MonthLoadingProps {
     /**
      *  Initially visible month. Default = Date()
      */
@@ -322,11 +331,6 @@ export interface CalendarBaseProps {
      *  Handler which gets executed when visible month changes in calendar. Default = undefined
      */
     onMonthChange?: DateCallbackHandler | undefined;
-
-    /**
-     *  Callback which gets executed when visible months change in scroll view. Default = undefined
-     */
-    onVisibleMonthsChange?: ((months: DateObject[]) => void) | undefined;
 
     /**
      *  Replace default arrows with custom ones (direction can be 'left' or 'right')
@@ -439,7 +443,7 @@ export interface AgendaItemsMap<TItem> {
     [date: string]: TItem[];
 }
 
-export interface AgendaProps<TItem> {
+export interface AgendaProps<TItem> extends MonthLoadingProps{
     /**
      *  Display loading indicator. Default = false
      */
